@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '1.2.4'
+}
+
+mainClassName = 'bot.Bot'
+
+version '1.0'
+def jdav = '3.2.0_242'
+sourceCompatibility = 1.8
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile "net.dv8tion:JDA:$jdav"
+    compile 'com.jagrosh:JDA-Utilities:1.4'
+    compile 'org.jsoup:jsoup:1.10.3'
+}
+
+compileJava.options.encoding = 'UTF-8'
