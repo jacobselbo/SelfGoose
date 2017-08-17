@@ -14,13 +14,10 @@ public class AfkCmd extends Command {
 
     @Override
     public void execute(String args, MessageReceivedEvent event) {
-        Bot.afkreason = "";
         if (args.equals("")) {
             reply(event.getAuthor().getAsMention() + " is now AFK!",event);
         } else {
             reply(event.getAuthor().getAsMention() + " is now AFK for "+args,event);
-            Bot.afkreason = args;
         }
-        Bot.afk = true;
     }
 }
