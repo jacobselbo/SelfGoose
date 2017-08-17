@@ -9,9 +9,7 @@ import net.dv8tion.jda.core.JDABuilder;
 import java.time.ZoneId;
 
 public class Bot {
-    public static String version = "1.0";
-    public static boolean afk;
-    public static String afkreason;
+    public static String version = "1.1";
 
     public static void main(String[] args) throws Exception {
         Http http = new Http();

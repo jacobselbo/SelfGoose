@@ -42,16 +42,7 @@ public class Listener extends ListenerAdapter {
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         if (event.getAuthor().isBot()) return;
-        if (Bot.afk && event.getMessage().getMentionedUsers().get(0).equals(event.getJDA().getSelfUser()) && !event.getAuthor().equals(event.getJDA().getSelfUser())) {
-            if(Bot.afkreason.equals("")) {
-                event.getChannel().sendMessage(event.getJDA().getSelfUser().getAsMention() + " is currently AFK").queue();
-            } else {
-                event.getChannel().sendMessage(event.getJDA().getSelfUser().getAsMention() + " is currently AFK for "+Bot.afkreason).queue();
-            }
-        }
         if (!event.getAuthor().equals(event.getJDA().getSelfUser())) return;
-        if (Bot.afk && event.getAuthor().equals(event.getJDA().getSelfUser()) && !event.getMessage().getRawContent().startsWith("<")) Bot.afk = false;
-        System.out.println("[" + event.getAuthor().getName() + "] : " + event.getMessage().getRawContent());
         boolean cmdran = false;
         if(event.getMessage().getRawContent().startsWith(prefix)) {
             String[] args = event.getMessage().getRawContent().substring(prefix.length()).trim().split("\\s+",2);

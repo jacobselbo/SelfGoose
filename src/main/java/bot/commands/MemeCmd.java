@@ -19,6 +19,7 @@ public class MemeCmd extends Command {
     public void execute(String args, MessageReceivedEvent event) {
         File jar = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
         File dir = new File(jar.getParentFile().getPath()+"\\memes");
+        System.out.println("jarpath:"+jar.getPath()+" | memfolder:"+dir.getPath());
         dir.mkdir();
         if(dir.list().length==0) {
             reply(":cry: theres no memes to choose from!",event);
