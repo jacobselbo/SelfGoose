@@ -43,7 +43,6 @@ public class InfoCmd extends Command {
 
         try {
             Document doc = Jsoup.connect("https://www.roblox.com/users/"+userid+"/profile").get();
-            Element stats = doc.getElementById("Statistics");
             
             JSONObject badgesobj = new JSONObject(http.sendGet("https://www.roblox.com/badges/roblox?userId="+userid+"&imgWidth=110&imgHeight=110&imgFormat=png").toString());
             JSONArray badges = badgesobj.getJSONArray("RobloxBadges");
@@ -63,6 +62,8 @@ public class InfoCmd extends Command {
         }
 
         EmbedBuilder builder = new EmbedBuilder();
+        if(event.getGuild()!=null)
+            builder.setColor(event.getGuild().getSelfMember().getColor());
         builder.setAuthor("RBX Profile data for "+args+"",null,null);
 
         StringBuilder sbuilder = new StringBuilder();
@@ -75,7 +76,7 @@ public class InfoCmd extends Command {
         if (ingroup.equalsIgnoreCase("true")) {
             sbuilder.append("Group role - " + role + "\n");
         }
-
+        builder.setTimestamp(event.getMessage().getCreationTime());
         builder.setDescription(sbuilder.toString());
         builder.setFooter(event.getAuthor().getName() + " | Self Goose bot v"+Bot.version, "https://www.roblox.com/headshot-thumbnail/image?userId="+userid+"&width=420&height=420&format=png");
         m.editMessage(new MessageBuilder().setEmbed(builder.build()).build()).queue();

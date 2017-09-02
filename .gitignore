@@ -37,3 +37,7 @@ gen### Example user template template
 *.iml
 out
 gen
+
+config\.txt
+
+emojis\.json

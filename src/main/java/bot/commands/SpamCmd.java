@@ -1,27 +1,27 @@
 package bot.commands;
 
 import bot.Command;
-import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
-public class SayCmd extends Command {
+import java.util.concurrent.ThreadLocalRandom;
 
-    public SayCmd() {
-        this.name = "say";
-        this.description = "says the args in emotes";
-        this.arguments = "<args>";
+public class SpamCmd extends Command {
+
+    public SpamCmd() {
+        this.name = "spam";
+        this.description = "says each char in <args>";
+        this.arguments = "<args> or random <numofspam>";
     }
 
     @Override
     public void execute(String args, MessageReceivedEvent event) {
+        if (args.equals("random")) {
+
+        }
         String[] parts = args.split("");
-        String message = "";
         for(String string : parts) {
             String uni = "";
-            switch (string.toLowerCase()) {
-                case " ":
-                    uni = "  ";
-                    break;
+            switch (string) {
                 case "a":
                     uni = "\uD83C\uDDE6";
                     break;
@@ -133,10 +133,16 @@ public class SayCmd extends Command {
                 case "#":
                     uni = "\u0023\u20E3";
                     break;
+                case " ":
+                    uni = "҈";
+                    break;
             }
-            message = message + " " + uni;
+            event.getChannel().sendMessage(uni).queue();
+            try {
+                Thread.sleep(ThreadLocalRandom.current().nextInt(100, 401));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-        message.trim();
-        reply(message,event);
     }
 }

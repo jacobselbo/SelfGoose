@@ -10,7 +10,7 @@ public class KickCmd extends Command {
     public KickCmd() {
         this.name = "kick";
         this.arguments = "<player>";
-        this.description = "kicks <player> if perms";
+        this.description = "kicks <player> if you have the permissions to do it";
     }
 
     @Override
@@ -24,7 +24,7 @@ public class KickCmd extends Command {
             event.getGuild().getController().kick(event.getGuild().getMember(tuser)).queue();
             reply(":white_check_mark: "+args+" has been kicked!",event);
         } else {
-            replytime(":warning: Sorry, you dont have permissions to do that",event,5000);
+            replytime(":warning: Sorry, you don't have permissions to do that",event,5000);
         }
     }
 }

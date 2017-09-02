@@ -6,6 +6,8 @@ import net.dv8tion.jda.core.entities.Emote;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
+import java.util.List;
+
 public class ReactCmd extends Command {
 
     public ReactCmd() {
@@ -19,10 +21,18 @@ public class ReactCmd extends Command {
         event.getChannel().getHistory().retrievePast(1).queue(success -> {
             Message message = success.get(0);
             String[] parts = args.split("");
-
+            if(message.getContent().equals(event.getMessage().getContent()) || message.getRawContent().equals(event.getMessage().getRawContent()) || message.equals(event.getMessage())) {
+                try {
+                    Thread.sleep(1000);
+                    List<Message> messageList = event.getChannel().getHistory().retrievePast(1).complete();
+                    message = messageList.get(0);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
             for(String string : parts) {
                 String uni = "";
-                switch (string) {
+                switch (string.toLowerCase()) {
                     case "a":
                         uni = "\uD83C\uDDE6";
                         break;

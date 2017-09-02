@@ -19,7 +19,9 @@ public class CmdsCmd extends Command {
     @Override
     public void execute(String args, MessageReceivedEvent event) {
         EmbedBuilder builder = new EmbedBuilder();
-        builder.setAuthor(event.getJDA().getSelfUser().getName()+" Commands", null, null);
+        if(event.getGuild()!=null)
+            builder.setColor(event.getGuild().getSelfMember().getColor());
+        builder.setAuthor(event.getJDA().getSelfUser().getName()+" Commands", null, event.getJDA().getSelfUser().getAvatarUrl()==null ? event.getJDA().getSelfUser().getDefaultAvatarUrl() : event.getJDA().getSelfUser().getAvatarUrl());
         StringBuilder sbuilder = new StringBuilder("Commands:");
         for(Command command : Listener.commands)
         {
@@ -28,8 +30,9 @@ public class CmdsCmd extends Command {
                 sbuilder.append(" ").append(command.arguments);
             sbuilder.append("` ").append(command.description);
         }
+        builder.setTimestamp(event.getMessage().getCreationTime());
         builder.setDescription(sbuilder.toString());
-        builder.setFooter(event.getAuthor().getName() + " | SelfGoose bot v"+Bot.version, event.getJDA().getSelfUser().getAvatarUrl()==null ? event.getJDA().getSelfUser().getDefaultAvatarUrl() : event.getJDA().getSelfUser().getAvatarUrl());
+        builder.setFooter(event.getAuthor().getName() + " | Self Goose bot v"+Bot.version, event.getJDA().getSelfUser().getAvatarUrl()==null ? event.getJDA().getSelfUser().getDefaultAvatarUrl() : event.getJDA().getSelfUser().getAvatarUrl());
         event.getChannel().sendMessage(new MessageBuilder().setEmbed(builder.build()).build()).queue();
     }
 }
